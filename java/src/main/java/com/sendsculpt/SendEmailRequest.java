@@ -21,6 +21,7 @@ public class SendEmailRequest {
     private List<String> replyTo;
     private List<Attachment> attachments;
     private String senderName;
+    private String environment;
 
     public static class Attachment {
         private String filename;
@@ -75,6 +76,7 @@ public class SendEmailRequest {
     public List<String> getReplyTo() { return replyTo; }
     public List<Attachment> getAttachments() { return attachments; }
     public String getSenderName() { return senderName; }
+    public String getEnvironment() { return environment; }
 
     // Setters
     public void setTo(List<String> to) { this.to = to; }
@@ -89,4 +91,5 @@ public class SendEmailRequest {
     public void setReplyTo(List<String> replyTo) { this.replyTo = replyTo; }
     public void setAttachments(List<Attachment> attachments) { this.attachments = attachments; }
     public void setSenderName(String senderName) { this.senderName = senderName; }
+    public void setEnvironment(String environment) { this.environment = environment; }
 }

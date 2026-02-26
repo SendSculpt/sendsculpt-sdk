@@ -22,7 +22,7 @@ namespace SendSculpt.Tests
         {
             _handlerMock = new Mock<HttpMessageHandler>();
             _httpClient = _handlerMock.CreateClient();
-            _client = new SendSculptClient("test-api-key");
+            _client = new SendSculptClient("test-api-key", "sandbox");
             
             // Overriding the _httpClient via reflection to inject the mock since it's private and has no setter
             var field = typeof(SendSculptClient).GetField("_httpClient", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);

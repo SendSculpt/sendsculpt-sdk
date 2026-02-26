@@ -24,8 +24,8 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        // Initialize client. You can customize the base URL for local development.
-        var client = new SendSculptClient("your-api-key", "https://api.sendsculpt.com/api/v1");
+        // Initialize client. You can set the environment for testing/sandbox.
+        var client = new SendSculptClient("your-api-key", "sandbox");
 
         var request = new SendEmailRequest
         {

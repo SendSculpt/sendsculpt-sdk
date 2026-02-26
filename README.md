@@ -36,6 +36,7 @@ SendSculpt's underlying schema validates against the following schema:
 
 ```json
 {
+  "environment": "live",
   "to": ["user1@example.com", "user2@example.com"],
   "subject": "Hello World",
   "from_email": "noreply@yourdomain.com",
@@ -70,6 +71,7 @@ SendSculpt's underlying schema validates against the following schema:
 
 ### Constraints and Validations
 - `to`, `subject`, and `from_email` are strictly required.
+- `environment` is optional and defaults to "live" if not provided. Can be either "live" or "sandbox".
 - The domain in the `from_email` property must be registered and fully verified (SPF, DKIM) under your SendSculpt organization account.
 - **Templates vs. Body:** You cannot provide `template_id` and `body_html` / `body_text` simultaneously.
 - When passing a `template_id`, and if your template requires context variables, make sure to supply them via `template_data`. `template_data` requires a `template_id` to be present.

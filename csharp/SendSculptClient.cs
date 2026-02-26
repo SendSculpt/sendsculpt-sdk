@@ -13,15 +13,17 @@ namespace SendSculpt
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
+        private readonly string _environment;
         private readonly string _baseUrl;
 
-        public SendSculptClient(string apiKey, string baseUrl = "https://api.sendsculpt.com/api/v1")
+        public SendSculptClient(string apiKey, string environment = "live")
         {
             if (string.IsNullOrWhiteSpace(apiKey))
                 throw new ArgumentException("API Key cannot be null or empty.", nameof(apiKey));
 
             _apiKey = apiKey;
-            _baseUrl = baseUrl.TrimEnd('/');
+            _environment = environment;
+            _baseUrl = "https://api.sendsculpt.com/api/v1";
             _httpClient = new HttpClient();
         }
 
@@ -54,6 +56,8 @@ namespace SendSculpt
                     }
                 }
             }
+
+            request.Environment = _environment;
 
             var requestUri = $"{_baseUrl}/send";
             var jsonBody = JsonSerializer.Serialize(request, new JsonSerializerOptions
@@ -136,6 +140,9 @@ namespace SendSculpt
 
         [JsonPropertyName("sender_name")]
         public string SenderName { get; set; }
+
+        [JsonPropertyName("environment")]
+        public string Environment { get; set; }
     }
 
     public class Attachment

@@ -8,14 +8,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +33,7 @@ class SendSculptClientTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        client = new SendSculptClient("test-api-key");
+        client = new SendSculptClient("test-api-key", "sandbox");
         
         java.lang.reflect.Field httpClientField = SendSculptClient.class.getDeclaredField("httpClient");
         httpClientField.setAccessible(true);

@@ -5,8 +5,11 @@ require 'tempfile'
 
 RSpec.describe Sendsculpt::Client do
   let(:api_key) { 'test-api-key' }
+  let(:environment) { 'sandbox' }
+  subject { described_class.new(api_key, environment) }
+
+  # Test requests always go to the default base url now that it's hardcoded
   let(:base_url) { 'https://api.sendsculpt.com/api/v1' }
-  subject { described_class.new(api_key, base_url) }
 
   before do
     WebMock.disable_net_connect!(allow_localhost: true)

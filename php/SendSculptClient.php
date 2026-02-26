@@ -4,20 +4,21 @@ namespace SendSculpt;
 
 class SendSculptClient {
     private string $apiKey;
-    private string $baseUrl;
+    private string $environment;
+    private string $baseUrl = 'https://api.sendsculpt.com/api/v1';
 
     /**
      * Initialize the SendSculptClient.
      *
      * @param string $apiKey Your SendSculpt API key.
-     * @param string $baseUrl The base URL for the SendSculpt API.
+     * @param string $environment The environment to run the SDK on (live or sandbox).
      */
-    public function __construct(string $apiKey, string $baseUrl = 'https://api.sendsculpt.com/api/v1') {
+    public function __construct(string $apiKey, string $environment = 'live') {
         if (empty($apiKey)) {
             throw new \InvalidArgumentException("API Key is required.");
         }
         $this->apiKey = $apiKey;
-        $this->baseUrl = rtrim($baseUrl, '/');
+        $this->environment = $environment;
     }
 
     /**
@@ -73,6 +74,8 @@ class SendSculptClient {
         $payload = array_filter($options, function ($value) {
             return $value !== null;
         });
+        
+        $payload['environment'] = $this->environment;
 
         $url = $this->baseUrl . '/send';
         $ch = curl_init($url);

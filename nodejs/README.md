@@ -74,8 +74,8 @@ sendMonthlyInvoice();
 ```
 
 ## Local Development
-If you are running the SendSculpt Mailer locally, set the `baseUrl` during initialization:
+If you are running tests or sandbox development, initialize the client with the `environment` set to `"sandbox"`:
 
 ```javascript
-const client = new SendSculptClient('local-api-key', 'https://api.sendsculpt.com/api/v1');
+const client = new SendSculptClient('your-api-key', 'sandbox');
 ```

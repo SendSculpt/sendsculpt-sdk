@@ -59,7 +59,7 @@ class SendSculptClientTest extends TestCase
             'error' => '',
         ];
         
-        $this->client = new SendSculptClient('test-api-key', 'https://api.sendsculpt.com/api/v1');
+        $this->client = new SendSculptClient('test-api-key', 'sandbox');
     }
 
     public function testMissingApiKeyThrowsException()

@@ -12,6 +12,7 @@ import java.time.Duration;
 
 public class SendSculptClient {
     private final String apiKey;
+    private final String environment;
     private final String baseUrl;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -20,14 +21,15 @@ public class SendSculptClient {
      * Initialize the SendSculptClient.
      *
      * @param apiKey Your SendSculpt API key.
-     * @param baseUrl The base URL for the SendSculpt API (default: https://api.sendsculpt.com/api/v1).
+     * @param environment The environment to use (live or sandbox).
      */
-    public SendSculptClient(String apiKey, String baseUrl) {
+    public SendSculptClient(String apiKey, String environment) {
         if (apiKey == null || apiKey.trim().isEmpty()) {
             throw new IllegalArgumentException("API Key cannot be null or empty.");
         }
         this.apiKey = apiKey;
-        this.baseUrl = baseUrl != null ? baseUrl.replaceAll("/$", "") : "https://api.sendsculpt.com/api/v1";
+        this.environment = environment != null && !environment.trim().isEmpty() ? environment : "live";
+        this.baseUrl = "https://api.sendsculpt.com/api/v1";
 
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(30))
@@ -39,7 +41,7 @@ public class SendSculptClient {
     }
 
     public SendSculptClient(String apiKey) {
-        this(apiKey, "https://api.sendsculpt.com/api/v1");
+        this(apiKey, "live");
     }
 
     /**
@@ -51,6 +53,8 @@ public class SendSculptClient {
      */
     public SendEmailResponse sendEmail(SendEmailRequest request) throws Exception {
         validateRequest(request);
+        
+        request.setEnvironment(this.environment);
 
         String jsonBody = objectMapper.writeValueAsString(request);
         String endpoint = this.baseUrl + "/send";

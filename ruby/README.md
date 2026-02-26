@@ -55,8 +55,8 @@ The Ruby SDK provides a convenience layer for files. You don't need to read and 
 ```ruby
 require 'sendsculpt'
 
-# For local development, pass the base URL as the second argument:
-client = Sendsculpt::Client.new('your-api-key', 'https://api.sendsculpt.com/api/v1')
+# For local development or sandbox testing, pass the environment as the second argument:
+client = Sendsculpt::Client.new('your-api-key', 'sandbox')
 
 begin
   response = client.send_email(

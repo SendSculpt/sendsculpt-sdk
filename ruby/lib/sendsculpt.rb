@@ -5,9 +5,10 @@ require 'base64'
 
 module Sendsculpt
   class Client
-    def initialize(api_key, base_url = 'https://api.sendsculpt.com/api/v1')
+    def initialize(api_key, environment = 'live')
       @api_key = api_key
-      @base_url = base_url
+      @environment = environment
+      @base_url = 'https://api.sendsculpt.com/api/v1'
     end
 
     def send_email(options = {})
@@ -55,6 +56,7 @@ module Sendsculpt
       payload[:reply_to] = options[:reply_to] if options[:reply_to]
       payload[:attachments] = formatted_attachments if formatted_attachments
       payload[:sender_name] = options[:sender_name] if options[:sender_name]
+      payload[:environment] = @environment
 
       uri = URI.parse("#{@base_url}/send")
       http = Net::HTTP.new(uri.host, uri.port)

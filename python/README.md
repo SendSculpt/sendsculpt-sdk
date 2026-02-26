@@ -60,11 +60,11 @@ print("Email queued successfully:", response['message_id'])
 ```
 
 ## Local Development
-If you are running the SendSculpt Mailer locally, initialize the client with the `base_url`:
+If you are running tests or sandbox development, initialize the client with the `environment` set to `"sandbox"`:
 
 ```python
 client = SendSculptClient(
-    api_key="local-api-key", 
-    base_url="https://api.sendsculpt.com/api/v1"
+    api_key="your-api-key", 
+    environment="sandbox"
 )
 ```

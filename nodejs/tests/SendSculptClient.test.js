@@ -10,7 +10,7 @@ describe("SendSculptClient", () => {
     let client;
 
     beforeEach(() => {
-        client = new SendSculptClient(API_KEY, BASE_URL);
+        client = new SendSculptClient(API_KEY, "sandbox");
         nock.cleanAll();
     });
 
@@ -24,7 +24,7 @@ describe("SendSculptClient", () => {
         const payload = {
             message_id: "test-msg-id"
         };
-        
+
         nock(BASE_URL)
             .post("/send", (body) => {
                 expect(body.to).toEqual(["recipient@example.com"]);
@@ -46,26 +46,30 @@ describe("SendSculptClient", () => {
     });
 
     test("validates templateId vs templateData", async () => {
-        await expect(client.sendEmail({
-            to: ["recipient@example.com"],
-            subject: "Test Subject",
-            fromEmail: "noreply@example.com",
-            templateData: { foo: "bar" }
-        })).rejects.toThrow("templateData and templateId must be provided together.");
-        
-        await expect(client.sendEmail({
-            to: ["recipient@example.com"],
-            subject: "Test Subject",
-            fromEmail: "noreply@example.com",
-            templateId: "uuid",
-            bodyText: "Hello"
-        })).rejects.toThrow("templateId and bodyHtml/bodyText cannot be provided together.");
+        await expect(
+            client.sendEmail({
+                to: ["recipient@example.com"],
+                subject: "Test Subject",
+                fromEmail: "noreply@example.com",
+                templateData: { foo: "bar" }
+            })
+        ).rejects.toThrow("templateData and templateId must be provided together.");
+
+        await expect(
+            client.sendEmail({
+                to: ["recipient@example.com"],
+                subject: "Test Subject",
+                fromEmail: "noreply@example.com",
+                templateId: "uuid",
+                bodyText: "Hello"
+            })
+        ).rejects.toThrow("templateId and bodyHtml/bodyText cannot be provided together.");
     });
 
     test("encodes raw content attachment correctly", async () => {
         const payload = { message_id: "test-msg-id" };
         const rawContent = Buffer.from("test content").toString("base64");
-        
+
         nock(BASE_URL)
             .post("/send", (body) => {
                 expect(body.attachments[0].filename).toBe("test.txt");
@@ -80,11 +84,13 @@ describe("SendSculptClient", () => {
             subject: "Test Subject",
             fromEmail: "noreply@example.com",
             bodyText: "Hello World",
-            attachments: [{
-                filename: "test.txt",
-                content: rawContent,
-                mimeType: "text/plain"
-            }]
+            attachments: [
+                {
+                    filename: "test.txt",
+                    content: rawContent,
+                    mimeType: "text/plain"
+                }
+            ]
         });
 
         expect(response.message_id).toBe("test-msg-id");
@@ -92,12 +98,12 @@ describe("SendSculptClient", () => {
 
     test("reads and encodes filePath attachment correctly", async () => {
         const payload = { message_id: "test-msg-id" };
-        
+
         const testFile = path.join(os.tmpdir(), "test_attachment.txt");
         fs.writeFileSync(testFile, "hello from test");
-        
+
         const expectedBase64 = Buffer.from("hello from test").toString("base64");
-        
+
         nock(BASE_URL)
             .post("/send", (body) => {
                 expect(body.attachments[0].filename).toBe("test.txt");
@@ -111,29 +117,35 @@ describe("SendSculptClient", () => {
             subject: "Test Subject",
             fromEmail: "noreply@example.com",
             bodyText: "Hello World",
-            attachments: [{
-                filename: "test.txt",
-                filePath: testFile,
-                mimeType: "text/plain"
-            }]
+            attachments: [
+                {
+                    filename: "test.txt",
+                    filePath: testFile,
+                    mimeType: "text/plain"
+                }
+            ]
         });
 
         expect(response.message_id).toBe("test-msg-id");
-        
+
         fs.unlinkSync(testFile);
     });
 
     test("throws if filePath attachment does not exist", async () => {
-        await expect(client.sendEmail({
-            to: ["recipient@example.com"],
-            subject: "Test",
-            fromEmail: "noreply@example.com",
-            bodyText: "Hello",
-            attachments: [{
-                filename: "missing.txt",
-                filePath: "/path/that/does/not/exist.txt",
-                mimeType: "text/plain"
-            }]
-        })).rejects.toThrow("Attachment file not found:");
+        await expect(
+            client.sendEmail({
+                to: ["recipient@example.com"],
+                subject: "Test",
+                fromEmail: "noreply@example.com",
+                bodyText: "Hello",
+                attachments: [
+                    {
+                        filename: "missing.txt",
+                        filePath: "/path/that/does/not/exist.txt",
+                        mimeType: "text/plain"
+                    }
+                ]
+            })
+        ).rejects.toThrow("Attachment file not found:");
     });
 });

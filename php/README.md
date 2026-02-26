@@ -25,7 +25,7 @@ require_once 'path/to/SendSculptClient.php';
 use SendSculpt\SendSculptClient;
 
 // Initialize the client
-$client = new SendSculptClient('your-api-key', 'https://api.sendsculpt.com/api/v1');
+$client = new SendSculptClient('your-api-key', 'live');
 
 try {
     $response = $client->sendEmail([
@@ -70,7 +70,7 @@ We have provided a sample Service Provider: `SendSculptServiceProvider.php`.
 ```php
 'sendsculpt' => [
     'key' => env('SENDSCULPT_API_KEY'),
-    'url' => env('SENDSCULPT_BASE_URL', 'https://api.sendsculpt.com/api/v1'),
+    'environment' => env('SENDSCULPT_ENVIRONMENT', 'live'),
 ],
 ```
 
@@ -121,9 +121,9 @@ class MailController extends BaseController
     public function index()
     {
         $apiKey = getenv('SENDSCULPT_API_KEY');
-        $baseUrl = getenv('SENDSCULPT_BASE_URL') ?: 'https://api.sendsculpt.com/api/v1';
+        $environment = getenv('SENDSCULPT_ENVIRONMENT') ?: 'live';
 
-        $client = new SendSculptClient($apiKey, $baseUrl);
+        $client = new SendSculptClient($apiKey, $environment);
 
         try {
             $response = $client->sendEmail([
@@ -154,14 +154,14 @@ To register `SendSculptClient` as a service in Symfony, configure your `services
 ```yaml
 parameters:
     sendsculpt_api_key: '%env(SENDSCULPT_API_KEY)%'
-    sendsculpt_base_url: '%env(default:base_url_default:SENDSCULPT_BASE_URL)%'
-    base_url_default: 'https://api.sendsculpt.com/api/v1'
+    sendsculpt_environment: '%env(default:environment_default:SENDSCULPT_ENVIRONMENT)%'
+    environment_default: 'live'
 
 services:
     SendSculpt\SendSculptClient:
         arguments:
             $apiKey: '%sendsculpt_api_key%'
-            $baseUrl: '%sendsculpt_base_url%'
+            $environment: '%sendsculpt_environment%'
 ```
 
 ### Usage in Controller

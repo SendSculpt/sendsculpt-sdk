@@ -37,7 +37,7 @@ declare module "sendsculpt-sdk" {
     }
 
     export class SendSculptClient {
-        constructor(apiKey: string, baseUrl?: string);
+        constructor(apiKey: string, environment?: string);
         sendEmail(options: SendEmailOptions): Promise<SendEmailResponse>;
     }
 }

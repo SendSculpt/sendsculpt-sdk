@@ -20,10 +20,13 @@ func TestNewClient(t *testing.T) {
 	if client.BaseURL != "https://api.sendsculpt.com/api/v1" {
 		t.Errorf("Expected BaseURL to be default, got %s", client.BaseURL)
 	}
+	if client.Environment != "live" {
+		t.Errorf("Expected Environment to be default live, got %s", client.Environment)
+	}
 
-	clientCustom := NewClient("test-key", "http://localhost:8080/")
-	if clientCustom.BaseURL != "http://localhost:8080" {
-		t.Errorf("Expected BaseURL to be http://localhost:8080, got %s", clientCustom.BaseURL)
+	clientCustom := NewClient("test-key", "sandbox")
+	if clientCustom.Environment != "sandbox" {
+		t.Errorf("Expected Environment to be sandbox, got %s", clientCustom.Environment)
 	}
 }
 
@@ -50,7 +53,8 @@ func TestSendEmailSuccess(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client := NewClient("test-key", server.URL)
+	client := NewClient("test-key", "sandbox")
+	client.BaseURL = server.URL
 
 	req := &SendEmailRequest{
 		To:        []string{"recipient@example.com"},
@@ -70,7 +74,8 @@ func TestSendEmailSuccess(t *testing.T) {
 }
 
 func TestSendEmailValidations(t *testing.T) {
-	client := NewClient("test-key", "http://dummy")
+	client := NewClient("test-key", "sandbox")
+	client.BaseURL = "http://dummy"
 
 	tests := []struct {
 		name        string
@@ -188,7 +193,8 @@ func TestSendEmailAttachments(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := NewClient("test-key", server.URL)
+	client := NewClient("test-key", "sandbox")
+	client.BaseURL = server.URL
 
 	req := &SendEmailRequest{
 		To:        []string{"t@e.com"},
@@ -221,7 +227,8 @@ func TestSendEmailAPIError(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client := NewClient("test-key", server.URL)
+	client := NewClient("test-key", "sandbox")
+	client.BaseURL = server.URL
 
 	req := &SendEmailRequest{
 		To:        []string{"t@e.com"},

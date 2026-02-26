@@ -7,14 +7,15 @@ class SendSculptClient {
      * Initialize the SendSculptClient.
      *
      * @param {string} apiKey - Your SendSculpt API key.
-     * @param {string} baseUrl - The base URL for the SendSculpt API.
+     * @param {"live" | "sandbox"} environment - The environment to use ("live" or "sandbox").
      */
-    constructor(apiKey, baseUrl = "https://api.sendsculpt.com/api/v1") {
+    constructor(apiKey, environment = "live") {
         if (!apiKey) {
             throw new Error("API Key is required to initialize SendSculptClient.");
         }
         this.apiKey = apiKey;
-        this.baseUrl = baseUrl.replace(/\/$/, ""); // Remove trailing slash if present
+        this.environment = environment;
+        this.baseUrl = "https://api.sendsculpt.com/api/v1";
 
         this.client = axios.create({
             baseURL: this.baseUrl,
@@ -109,6 +110,8 @@ class SendSculptClient {
         if (replyTo) payload.reply_to = replyTo;
         if (formattedAttachments) payload.attachments = formattedAttachments;
         if (senderName) payload.sender_name = senderName;
+
+        payload.environment = this.environment;
 
         try {
             const response = await this.client.post("/send", payload);

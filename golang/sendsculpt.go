@@ -9,15 +9,15 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 )
 
 // Client handles communication with the SendSculpt API.
 type Client struct {
-	BaseURL    string
-	APIKey     string
-	HTTPClient *http.Client
+	BaseURL     string
+	APIKey      string
+	Environment string
+	HTTPClient  *http.Client
 }
 
 // Attachment represents an email attachment.
@@ -43,6 +43,7 @@ type SendEmailRequest struct {
 	ReplyTo      []string               `json:"reply_to,omitempty"`
 	Attachments  []Attachment           `json:"attachments,omitempty"`
 	SenderName   *string                `json:"sender_name,omitempty"`
+	Environment  string                 `json:"environment,omitempty"`
 }
 
 // SendEmailResponse represents the successful API response.
@@ -52,15 +53,16 @@ type SendEmailResponse struct {
 }
 
 // NewClient creates a new SendSculpt API client.
-func NewClient(apiKey string, baseURL ...string) *Client {
-	url := "https://api.sendsculpt.com/api/v1"
-	if len(baseURL) > 0 {
-		url = strings.TrimRight(baseURL[0], "/")
+func NewClient(apiKey string, environment ...string) *Client {
+	env := "live"
+	if len(environment) > 0 && environment[0] != "" {
+		env = environment[0]
 	}
 
 	return &Client{
-		BaseURL: url,
-		APIKey:  apiKey,
+		BaseURL:     "https://api.sendsculpt.com/api/v1",
+		APIKey:      apiKey,
+		Environment: env,
 		HTTPClient: &http.Client{
 			Timeout: time.Minute,
 		},
@@ -101,6 +103,8 @@ func (c *Client) SendEmail(req *SendEmailRequest) (*SendEmailResponse, error) {
 			}
 		}
 	}
+
+	req.Environment = c.Environment
 
 	bodyBytes, err := json.Marshal(req)
 	if err != nil {

@@ -25,9 +25,9 @@ import (
 )
 
 func main() {
-	// Initialize the client. The second argument is the Base URL.
-	// You can omit the Base URL to use the default one.
-	client := sendsculpt.NewClient("your-api-key", "https://api.sendsculpt.com/api/v1")
+	// Initialize the client. The second optional argument is the environment.
+	// You can omit the environment to use the default 'live' environment.
+	client := sendsculpt.NewClient("your-api-key", "live")
 
 	// Create request payload
 	req := &sendsculpt.SendEmailRequest{
