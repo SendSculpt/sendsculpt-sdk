@@ -8,7 +8,7 @@ The official Golang client for sending emails via the SendSculpt Mailer API.
 ## Installation
 
 ```bash
-go get github.com/sendsculpt/sendsculpt-sdk-go
+go get github.com/SendSculpt/sendsculpt-sdk/golang
 ```
 *(Use local relative import if using module without publishing)*
 
@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/sendsculpt/sendsculpt-sdk-go" // Adjust based on your module path
+	"github.com/SendSculpt/sendsculpt-sdk/golang" // Adjust based on your module path
 )
 
 func main() {
@@ -56,7 +56,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/sendsculpt/sendsculpt-sdk-go"
+	"github.com/SendSculpt/sendsculpt-sdk/golang"
 )
 
 func sendInvoiceEmail(client *sendsculpt.Client) {

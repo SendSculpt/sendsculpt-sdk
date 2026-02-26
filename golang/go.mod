@@ -1,3 +1,3 @@
-module github.com/sendsculpt/sendsculpt-sdk-go
+module github.com/SendSculpt/sendsculpt-sdk/golang
 
 go 1.20
