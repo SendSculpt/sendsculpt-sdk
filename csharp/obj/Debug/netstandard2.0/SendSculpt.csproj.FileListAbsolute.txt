@@ -1,0 +1,11 @@
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.csproj.AssemblyReference.cache
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.GeneratedMSBuildEditorConfig.editorconfig
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.AssemblyInfoInputs.cache
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.AssemblyInfo.cs
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.csproj.CoreCompileInputs.cache
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.sourcelink.json
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/bin/Debug/netstandard2.0/SendSculpt.deps.json
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/bin/Debug/netstandard2.0/SendSculpt.dll
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/bin/Debug/netstandard2.0/SendSculpt.pdb
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.dll
+/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/obj/Debug/netstandard2.0/SendSculpt.pdb

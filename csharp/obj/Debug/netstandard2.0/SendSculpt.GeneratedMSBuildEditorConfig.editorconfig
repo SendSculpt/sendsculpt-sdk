@@ -1,0 +1,5 @@
+is_global = true
+build_property.RootNamespace = SendSculpt
+build_property.ProjectDir = /Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

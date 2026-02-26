@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "dgSpecHash": "pgO2l9cX2fKIm1Q6oeqwFZGGtmnxk/ks3fkv4RCn9iOuPzcURtzmmIdH/76N90trOMupqxkadF5UBGC4uvfJ1Q==",
+  "success": true,
+  "projectFilePath": "/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/tests/SendSculpt.Tests.csproj",
+  "expectedPackageFiles": [
+    "/Users/cleave/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.codecoverage/17.9.0/microsoft.codecoverage.17.9.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.configuration/2.1.1/microsoft.extensions.configuration.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.configuration.abstractions/2.1.1/microsoft.extensions.configuration.abstractions.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.configuration.binder/2.1.1/microsoft.extensions.configuration.binder.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.1.1/microsoft.extensions.dependencyinjection.abstractions.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.http/2.1.1/microsoft.extensions.http.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.logging/2.1.1/microsoft.extensions.logging.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.logging.abstractions/2.1.1/microsoft.extensions.logging.abstractions.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.options/2.1.1/microsoft.extensions.options.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.extensions.primitives/2.1.1/microsoft.extensions.primitives.2.1.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.net.test.sdk/17.9.0/microsoft.net.test.sdk.17.9.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.testplatform.objectmodel/17.9.0/microsoft.testplatform.objectmodel.17.9.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/microsoft.testplatform.testhost/17.9.0/microsoft.testplatform.testhost.17.9.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/moq/4.20.70/moq.4.20.70.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/moq.contrib.httpclient/1.4.0/moq.contrib.httpclient.1.4.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/system.diagnostics.eventlog/6.0.0/system.diagnostics.eventlog.6.0.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/system.memory/4.5.1/system.memory.4.5.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/system.net.http.json/6.0.0/system.net.http.json.6.0.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/system.reflection.metadata/1.6.0/system.reflection.metadata.1.6.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.1/system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/system.text.json/8.0.0/system.text.json.8.0.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit/2.7.0/xunit.2.7.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit.abstractions/2.0.3/xunit.abstractions.2.0.3.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit.analyzers/1.11.0/xunit.analyzers.1.11.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit.assert/2.7.0/xunit.assert.2.7.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit.core/2.7.0/xunit.core.2.7.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit.extensibility.core/2.7.0/xunit.extensibility.core.2.7.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit.extensibility.execution/2.7.0/xunit.extensibility.execution.2.7.0.nupkg.sha512",
+    "/Users/cleave/.nuget/packages/xunit.runner.visualstudio/2.5.7/xunit.runner.visualstudio.2.5.7.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Access to the path '/Users/cleave/.local/share' is denied."
+    }
+  ]
+}
