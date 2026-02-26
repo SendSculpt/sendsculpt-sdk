@@ -66,11 +66,11 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.4'
           tools: composer:v2
       - name: Install dependencies
         working-directory: ./php
-        run: composer install --prefer-dist --no-progress
+        run: composer update --prefer-dist --no-progress
       - name: Run tests
         working-directory: ./php
         run: ./vendor/bin/phpunit tests/SendSculptClientTest.php
