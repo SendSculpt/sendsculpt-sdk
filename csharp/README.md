@@ -24,8 +24,8 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        // Initialize client. You can set the environment for testing/sandbox.
-        var client = new SendSculptClient("your-api-key", "sandbox");
+        // Initialize client.
+        var client = new SendSculptClient("your-api-key");
 
         var request = new SendEmailRequest
         {

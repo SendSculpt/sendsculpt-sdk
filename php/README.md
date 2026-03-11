@@ -25,7 +25,7 @@ require_once 'path/to/SendSculptClient.php';
 use SendSculpt\SendSculptClient;
 
 // Initialize the client
-$client = new SendSculptClient('your-api-key', 'live');
+$client = new SendSculptClient('your-api-key');
 
 try {
     $response = $client->sendEmail([
@@ -70,7 +70,7 @@ We have provided a sample Service Provider: `SendSculptServiceProvider.php`.
 ```php
 'sendsculpt' => [
     'key' => env('SENDSCULPT_API_KEY'),
-    'environment' => env('SENDSCULPT_ENVIRONMENT', 'live'),
+    'key' => env('SENDSCULPT_API_KEY'),
 ],
 ```
 
@@ -121,9 +121,8 @@ class MailController extends BaseController
     public function index()
     {
         $apiKey = getenv('SENDSCULPT_API_KEY');
-        $environment = getenv('SENDSCULPT_ENVIRONMENT') ?: 'live';
 
-        $client = new SendSculptClient($apiKey, $environment);
+        $client = new SendSculptClient($apiKey);
 
         try {
             $response = $client->sendEmail([
@@ -154,14 +153,9 @@ To register `SendSculptClient` as a service in Symfony, configure your `services
 ```yaml
 parameters:
     sendsculpt_api_key: '%env(SENDSCULPT_API_KEY)%'
-    sendsculpt_environment: '%env(default:environment_default:SENDSCULPT_ENVIRONMENT)%'
-    environment_default: 'live'
-
-services:
     SendSculpt\SendSculptClient:
         arguments:
             $apiKey: '%sendsculpt_api_key%'
-            $environment: '%sendsculpt_environment%'
 ```
 
 ### Usage in Controller

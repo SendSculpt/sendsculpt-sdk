@@ -12,7 +12,6 @@ import java.time.Duration;
 
 public class SendSculptClient {
     private final String apiKey;
-    private final String environment;
     private final String baseUrl;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -21,17 +20,16 @@ public class SendSculptClient {
      * Initialize the SendSculptClient.
      *
      * @param apiKey Your SendSculpt API key.
-     * @param environment The environment to use (live or sandbox).
      */
-    public SendSculptClient(String apiKey, String environment) {
+    public SendSculptClient(String apiKey) {
         if (apiKey == null || apiKey.trim().isEmpty()) {
             throw new IllegalArgumentException("API Key cannot be null or empty.");
         }
         this.apiKey = apiKey;
-        this.environment = environment != null && !environment.trim().isEmpty() ? environment : "live";
         this.baseUrl = "https://api.sendsculpt.com/api/v1";
 
         this.httpClient = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1)
                 .connectTimeout(Duration.ofSeconds(30))
                 .build();
 
@@ -40,22 +38,16 @@ public class SendSculptClient {
                 .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     }
 
-    public SendSculptClient(String apiKey) {
-        this(apiKey, "live");
-    }
-
     /**
      * Send an email via the SendSculpt API.
      *
-     * @param request The SendEmailRequest object holding the paylaod.
+     * @param request The SendEmailRequest object holding the payload.
      * @return The SendEmailResponse holding the status and message_id.
      * @throws Exception On any serialization or IO error, or if the API returns a non-200 status code.
      */
     public SendEmailResponse sendEmail(SendEmailRequest request) throws Exception {
         validateRequest(request);
         
-        request.setEnvironment(this.environment);
-
         String jsonBody = objectMapper.writeValueAsString(request);
         String endpoint = this.baseUrl + "/send";
 
@@ -70,11 +62,20 @@ public class SendSculptClient {
 
         HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() >= 400) {
-            throw new RuntimeException(String.format("SendSculpt API Error [%d]: %s", response.statusCode(), response.body()));
+        ApiResponse<SendEmailResponse> wrapper = objectMapper.readValue(
+            response.body(), 
+            objectMapper.getTypeFactory().constructParametricType(ApiResponse.class, SendEmailResponse.class)
+        );
+
+        if (response.statusCode() >= 400 || wrapper == null || !wrapper.isStatus()) {
+            String errorMsg = wrapper != null && wrapper.getMessage() != null ? wrapper.getMessage() : "Unknown error";
+            if (wrapper == null && response.statusCode() >= 400) {
+                 errorMsg = response.body();
+            }
+            throw new RuntimeException(String.format("SendSculpt API Error [%d]: %s", response.statusCode(), errorMsg));
         }
 
-        return objectMapper.readValue(response.body(), SendEmailResponse.class);
+        return wrapper.getData();
     }
 
     private void validateRequest(SendEmailRequest req) {

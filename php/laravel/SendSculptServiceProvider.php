@@ -16,9 +16,8 @@ class SendSculptServiceProvider extends ServiceProvider
     {
         $this->app->singleton(SendSculptClient::class, function ($app) {
             $apiKey = config('services.sendsculpt.key');
-            $environment = config('services.sendsculpt.environment', 'live');
             
-            return new SendSculptClient($apiKey, $environment);
+            return new SendSculptClient($apiKey);
         });
     }
 

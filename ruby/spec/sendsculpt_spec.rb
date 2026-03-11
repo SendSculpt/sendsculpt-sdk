@@ -5,8 +5,7 @@ require 'tempfile'
 
 RSpec.describe Sendsculpt::Client do
   let(:api_key) { 'test-api-key' }
-  let(:environment) { 'sandbox' }
-  subject { described_class.new(api_key, environment) }
+  subject { described_class.new(api_key) }
 
   # Test requests always go to the default base url now that it's hardcoded
   let(:base_url) { 'https://api.sendsculpt.com/api/v1' }

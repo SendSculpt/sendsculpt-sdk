@@ -1,5 +1,5 @@
 {
-    "name": "@sendsculpt/sdk",
+    "name": "@sendsculpt/client",
     "version": "1.0.0",
     "description": "Official SendSculpt Mailer Node.js SDK",
     "main": "index.js",

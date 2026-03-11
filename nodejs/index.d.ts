@@ -1,4 +1,4 @@
-declare module "sendsculpt-sdk" {
+declare module "@sendsculpt/client" {
     interface SendEmailOptions {
         to: string[];
         subject: string;
@@ -37,7 +37,7 @@ declare module "sendsculpt-sdk" {
     }
 
     export class SendSculptClient {
-        constructor(apiKey: string, environment?: string);
+        constructor(apiKey: string);
         sendEmail(options: SendEmailOptions): Promise<SendEmailResponse>;
     }
 }

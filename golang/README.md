@@ -25,9 +25,8 @@ import (
 )
 
 func main() {
-	// Initialize the client. The second optional argument is the environment.
-	// You can omit the environment to use the default 'live' environment.
-	client := sendsculpt.NewClient("your-api-key", "live")
+	// Initialize the client.
+	client := sendsculpt.NewClient("your-api-key")
 
 	// Create request payload
 	req := &sendsculpt.SendEmailRequest{

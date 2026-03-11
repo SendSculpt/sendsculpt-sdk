@@ -13,16 +13,14 @@ namespace SendSculpt
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
-        private readonly string _environment;
         private readonly string _baseUrl;
 
-        public SendSculptClient(string apiKey, string environment = "live")
+        public SendSculptClient(string apiKey)
         {
             if (string.IsNullOrWhiteSpace(apiKey))
                 throw new ArgumentException("API Key cannot be null or empty.", nameof(apiKey));
 
             _apiKey = apiKey;
-            _environment = environment;
             _baseUrl = "https://api.sendsculpt.com/api/v1";
             _httpClient = new HttpClient();
         }
@@ -57,8 +55,6 @@ namespace SendSculpt
                 }
             }
 
-            request.Environment = _environment;
-
             var requestUri = $"{_baseUrl}/send";
             var jsonBody = JsonSerializer.Serialize(request, new JsonSerializerOptions
             {
@@ -75,15 +71,17 @@ namespace SendSculpt
             var response = await _httpClient.SendAsync(req);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)
+            var wrapper = JsonSerializer.Deserialize<ApiResponse<SendEmailResponse>>(responseString, new JsonSerializerOptions
             {
-                throw new Exception($"SendSculpt API Error [{(int)response.StatusCode}]: {responseString}");
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            if (wrapper == null || !wrapper.Status)
+            {
+                throw new Exception($"SendSculpt API Error [{(int)response.StatusCode}]: {wrapper?.Message ?? responseString}");
             }
 
-            return JsonSerializer.Deserialize<SendEmailResponse>(responseString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase // Or custom if response uses snake_case, assuming standard here. Needs adjustment based on actual return from the API.
-            });
+            return wrapper.Data;
         }
 
         private void ValidateRequest(SendEmailRequest req)
@@ -101,6 +99,24 @@ namespace SendSculpt
             if (!string.IsNullOrWhiteSpace(req.TemplateId) && (!string.IsNullOrWhiteSpace(req.BodyHtml) || !string.IsNullOrWhiteSpace(req.BodyText)))
                 throw new ArgumentException("TemplateId and BodyHtml/BodyText cannot be provided together.");
         }
+    }
+
+    public class ApiResponse<T>
+    {
+        [JsonPropertyName("status")]
+        public bool Status { get; set; }
+
+        [JsonPropertyName("code")]
+        public int Code { get; set; }
+
+        [JsonPropertyName("message")]
+        public string Message { get; set; }
+
+        [JsonPropertyName("data")]
+        public T Data { get; set; }
+
+        [JsonPropertyName("error")]
+        public string Error { get; set; }
     }
 
     public class SendEmailRequest
@@ -140,9 +156,6 @@ namespace SendSculpt
 
         [JsonPropertyName("sender_name")]
         public string SenderName { get; set; }
-
-        [JsonPropertyName("environment")]
-        public string Environment { get; set; }
     }
 
     public class Attachment

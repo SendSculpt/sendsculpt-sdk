@@ -9,14 +9,12 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"time"
 )
 
 // Client handles communication with the SendSculpt API.
 type Client struct {
 	BaseURL     string
 	APIKey      string
-	Environment string
 	HTTPClient  *http.Client
 }
 
@@ -43,7 +41,6 @@ type SendEmailRequest struct {
 	ReplyTo      []string               `json:"reply_to,omitempty"`
 	Attachments  []Attachment           `json:"attachments,omitempty"`
 	SenderName   *string                `json:"sender_name,omitempty"`
-	Environment  string                 `json:"environment,omitempty"`
 }
 
 // SendEmailResponse represents the successful API response.
@@ -53,25 +50,28 @@ type SendEmailResponse struct {
 }
 
 // NewClient creates a new SendSculpt API client.
-func NewClient(apiKey string, environment ...string) *Client {
-	env := "live"
-	if len(environment) > 0 && environment[0] != "" {
-		env = environment[0]
-	}
-
+func NewClient(apiKey string) *Client {
 	return &Client{
-		BaseURL:     "https://api.sendsculpt.com/api/v1",
-		APIKey:      apiKey,
-		Environment: env,
+		BaseURL: "https://api.sendsculpt.com/api/v1",
+		APIKey:  apiKey,
 		HTTPClient: &http.Client{
-			Timeout: time.Minute,
+			// Timeout: time.Minute, // Removed fixed timeout for now or use default
 		},
 	}
 }
 
+// APIResponse represents the unified API response wrapper.
+type APIResponse struct {
+	Status  bool              `json:"status"`
+	Code    int               `json:"code"`
+	Message string            `json:"message"`
+	Data    json.RawMessage   `json:"data"`
+	Error   interface{}       `json:"error"`
+}
+
 // SendEmail sends an email via the SendSculpt API.
 func (c *Client) SendEmail(req *SendEmailRequest) (*SendEmailResponse, error) {
-	if req.To == nil || len(req.To) == 0 {
+	if len(req.To) == 0 {
 		return nil, errors.New("'To' field is required")
 	}
 	if req.Subject == "" {
@@ -104,8 +104,6 @@ func (c *Client) SendEmail(req *SendEmailRequest) (*SendEmailResponse, error) {
 		}
 	}
 
-	req.Environment = c.Environment
-
 	bodyBytes, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -132,13 +130,18 @@ func (c *Client) SendEmail(req *SendEmailRequest) (*SendEmailResponse, error) {
 		return nil, err
 	}
 
-	if res.StatusCode >= 400 {
-		return nil, fmt.Errorf("SendSculpt API Error [%d]: %s", res.StatusCode, string(resBody))
+	var wrapper APIResponse
+	if err := json.Unmarshal(resBody, &wrapper); err != nil {
+		return nil, fmt.Errorf("failed to decode API response: %w", err)
+	}
+
+	if !wrapper.Status {
+		return nil, fmt.Errorf("SendSculpt API Error [%d]: %s", res.StatusCode, wrapper.Message)
 	}
 
 	var response SendEmailResponse
-	if err := json.Unmarshal(resBody, &response); err != nil {
-		return nil, err
+	if err := json.Unmarshal(wrapper.Data, &response); err != nil {
+		return nil, fmt.Errorf("failed to decode API data: %w", err)
 	}
 
 	return &response, nil

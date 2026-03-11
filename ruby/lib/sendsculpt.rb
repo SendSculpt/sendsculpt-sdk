@@ -5,9 +5,8 @@ require 'base64'
 
 module Sendsculpt
   class Client
-    def initialize(api_key, environment = 'live')
+    def initialize(api_key)
       @api_key = api_key
-      @environment = environment
       @base_url = 'https://api.sendsculpt.com/api/v1'
     end
 
@@ -56,7 +55,6 @@ module Sendsculpt
       payload[:reply_to] = options[:reply_to] if options[:reply_to]
       payload[:attachments] = formatted_attachments if formatted_attachments
       payload[:sender_name] = options[:sender_name] if options[:sender_name]
-      payload[:environment] = @environment
 
       uri = URI.parse("#{@base_url}/send")
       http = Net::HTTP.new(uri.host, uri.port)
@@ -69,11 +67,18 @@ module Sendsculpt
 
       response = http.request(request)
 
+      body = JSON.parse(response.body) rescue nil
+
       if response.code.to_i >= 400
-        raise "API Error: #{response.code} - #{response.body}"
+        message = body && body['message'] ? body['message'] : "Unknown error"
+        raise "SendSculpt API Error [#{response.code}]: #{message}"
       end
 
-      JSON.parse(response.body)
+      if body && body['status'] == true
+        return body['data']
+      else
+        raise "SendSculpt API Error: #{body && body['message'] || 'Unknown error'}"
+      end
     end
   end
 end

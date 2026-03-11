@@ -33,7 +33,7 @@ class SendSculptClientTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        client = new SendSculptClient("test-api-key", "sandbox");
+        client = new SendSculptClient("your-api-key");
         
         java.lang.reflect.Field httpClientField = SendSculptClient.class.getDeclaredField("httpClient");
         httpClientField.setAccessible(true);
@@ -48,7 +48,7 @@ class SendSculptClientTest {
 
     @Test
     void testSendEmailSuccessfully() throws Exception {
-        String successJsonResponse = "{\"message_id\":\"test-msg-id\",\"status\":\"sent\"}";
+        String successJsonResponse = "{\"status\": true, \"code\": 200, \"message\": \"success\", \"data\": {\"message_id\":\"test-msg-id\",\"status\":\"sent\"}}";
         when(mockHttpResponse.statusCode()).thenReturn(200);
         when(mockHttpResponse.body()).thenReturn(successJsonResponse);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
@@ -71,7 +71,7 @@ class SendSculptClientTest {
         HttpRequest capturedReq = requestCaptor.getValue();
         assertEquals("https://api.sendsculpt.com/api/v1/send", capturedReq.uri().toString());
         assertEquals("POST", capturedReq.method());
-        assertEquals("test-api-key", capturedReq.headers().firstValue("x-sendsculpt-key").orElse(""));
+        assertEquals("your-api-key", capturedReq.headers().firstValue("x-sendsculpt-key").orElse(""));
     }
 
     @Test
@@ -109,7 +109,7 @@ class SendSculptClientTest {
 
     @Test
     void testAttachmentsEncoding(@TempDir Path tempDir) throws Exception {
-        String successJsonResponse = "{\"message_id\":\"msg\",\"status\":\"sent\"}";
+        String successJsonResponse = "{\"status\": true, \"code\": 200, \"message\": \"success\", \"data\": {\"message_id\":\"msg\",\"status\":\"sent\"}}";
         when(mockHttpResponse.statusCode()).thenReturn(200);
         when(mockHttpResponse.body()).thenReturn(successJsonResponse);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
@@ -169,7 +169,7 @@ class SendSculptClientTest {
     @Test
     void testApiErrorResponseThrowsException() throws Exception {
         when(mockHttpResponse.statusCode()).thenReturn(400);
-        when(mockHttpResponse.body()).thenReturn("{\"detail\":[\"Error string\"]}");
+        when(mockHttpResponse.body()).thenReturn("{\"status\": false, \"code\": 400, \"message\": \"Bad Request\", \"error\": \"Error string\"}");
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
                 .thenReturn(mockHttpResponse);
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YHeAvpcVmlxG0aanMyHFmtAncN4FttbXpW4jD+ba9uNj6wHm25l0ruHSDgs7xXab30qIrgVnX+ZYjBJtfiIA5A==",
+  "dgSpecHash": "WgDIhkDLlRc=",
   "success": true,
   "projectFilePath": "/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/SendSculpt.csproj",
   "expectedPackageFiles": [
@@ -19,8 +19,11 @@
     {
       "code": "NU1900",
       "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Access to the path '/Users/cleave/.local/share' is denied.",
+      "projectPath": "/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/SendSculpt.csproj",
       "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Access to the path '/Users/cleave/.local/share' is denied."
+      "filePath": "/Users/cleave/Desktop/PROJECTS/sendsculpt-sdk/csharp/SendSculpt.csproj",
+      "targetGraphs": []
     }
   ]
 }

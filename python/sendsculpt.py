@@ -9,15 +9,13 @@ class SendSculptClient:
     Client for interacting with the SendSculpt Mailer API.
     """
 
-    def __init__(self, api_key: str, environment: str = "live"):
+    def __init__(self, api_key: str):
         """
         Initialize the SendSculptClient.
 
         :param api_key: Your SendSculpt API key.
-        :param environment: The environment to use ("live" or "sandbox").
         """
         self.api_key = api_key
-        self.environment = environment
         self.base_url = "https://api.sendsculpt.com/api/v1"
         self.headers = {
             "x-sendsculpt-key": self.api_key,
@@ -124,10 +122,13 @@ class SendSculptClient:
         if sender_name is not None:
             payload["sender_name"] = sender_name
 
-        payload["environment"] = self.environment
-
         endpoint = f"{self.base_url}/send"
         response = requests.post(endpoint, json=payload, headers=self.headers)
 
-        response.raise_for_status()
-        return response.json()
+        body = response.json()
+        if body.get("status") is True:
+            return body.get("data")
+
+        # Handle API error response
+        error_msg = body.get("message", "Unknown error")
+        raise Exception(f"SendSculpt API Error [{response.status_code}]: {error_msg}")

@@ -4,21 +4,18 @@ namespace SendSculpt;
 
 class SendSculptClient {
     private string $apiKey;
-    private string $environment;
     private string $baseUrl = 'https://api.sendsculpt.com/api/v1';
 
     /**
      * Initialize the SendSculptClient.
      *
      * @param string $apiKey Your SendSculpt API key.
-     * @param string $environment The environment to run the SDK on (live or sandbox).
      */
-    public function __construct(string $apiKey, string $environment = 'live') {
+    public function __construct(string $apiKey) {
         if (empty($apiKey)) {
             throw new \InvalidArgumentException("API Key is required.");
         }
         $this->apiKey = $apiKey;
-        $this->environment = $environment;
     }
 
     /**
@@ -74,8 +71,7 @@ class SendSculptClient {
         $payload = array_filter($options, function ($value) {
             return $value !== null;
         });
-        
-        $payload['environment'] = $this->environment;
+    
 
         $url = $this->baseUrl . '/send';
         $ch = curl_init($url);
@@ -101,10 +97,14 @@ class SendSculptClient {
         $decodedResponse = json_decode($response, true);
 
         if ($httpCode >= 400) {
-            $errorMsg = isset($decodedResponse['detail']) ? json_encode($decodedResponse['detail']) : $response;
+            $errorMsg = $decodedResponse['message'] ?? (isset($decodedResponse['detail']) ? json_encode($decodedResponse['detail']) : $response);
             throw new \Exception("SendSculpt API Error [{$httpCode}]: " . $errorMsg);
         }
 
-        return $decodedResponse;
+        if (isset($decodedResponse['status']) && $decodedResponse['status'] === true) {
+            return $decodedResponse['data'];
+        }
+
+        throw new \Exception("SendSculpt API Error: " . ($decodedResponse['message'] ?? "Unknown error"));
     }
 }

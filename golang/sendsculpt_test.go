@@ -20,14 +20,6 @@ func TestNewClient(t *testing.T) {
 	if client.BaseURL != "https://api.sendsculpt.com/api/v1" {
 		t.Errorf("Expected BaseURL to be default, got %s", client.BaseURL)
 	}
-	if client.Environment != "live" {
-		t.Errorf("Expected Environment to be default live, got %s", client.Environment)
-	}
-
-	clientCustom := NewClient("test-key", "sandbox")
-	if clientCustom.Environment != "sandbox" {
-		t.Errorf("Expected Environment to be sandbox, got %s", clientCustom.Environment)
-	}
 }
 
 func TestSendEmailSuccess(t *testing.T) {
@@ -49,11 +41,11 @@ func TestSendEmailSuccess(t *testing.T) {
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintln(w, `{"message_id": "test-msg-id", "status": "sent"}`)
+		fmt.Fprintln(w, `{"status": true, "code": 200, "message": "success", "data": {"message_id": "test-msg-id", "status": "sent"}}`)
 	}))
 	defer server.Close()
 
-	client := NewClient("test-key", "sandbox")
+	client := NewClient("test-key")
 	client.BaseURL = server.URL
 
 	req := &SendEmailRequest{
@@ -74,7 +66,7 @@ func TestSendEmailSuccess(t *testing.T) {
 }
 
 func TestSendEmailValidations(t *testing.T) {
-	client := NewClient("test-key", "sandbox")
+	client := NewClient("test-key")
 	client.BaseURL = "http://dummy"
 
 	tests := []struct {
@@ -176,7 +168,7 @@ func TestSendEmailAttachments(t *testing.T) {
 		}
 
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintln(w, `{"message_id": "msg", "status": "sent"}`)
+		fmt.Fprintln(w, `{"status": true, "code": 200, "message": "success", "data": {"message_id": "msg", "status": "sent"}}`)
 	}))
 	defer server.Close()
 
@@ -193,7 +185,7 @@ func TestSendEmailAttachments(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := NewClient("test-key", "sandbox")
+	client := NewClient("test-key")
 	client.BaseURL = server.URL
 
 	req := &SendEmailRequest{
@@ -223,11 +215,11 @@ func TestSendEmailAttachments(t *testing.T) {
 func TestSendEmailAPIError(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintln(w, `{"detail": ["Missing field"]}`)
+		fmt.Fprintln(w, `{"status": false, "code": 400, "message": "Bad Request", "error": "Missing field"}`)
 	}))
 	defer server.Close()
 
-	client := NewClient("test-key", "sandbox")
+	client := NewClient("test-key")
 	client.BaseURL = server.URL
 
 	req := &SendEmailRequest{

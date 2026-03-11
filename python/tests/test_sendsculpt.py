@@ -10,7 +10,7 @@ BASE_URL = "https://api.sendsculpt.com/api/v1"
 
 @pytest.fixture
 def client():
-    return SendSculptClient(api_key=API_KEY, environment="sandbox")
+    return SendSculptClient(api_key=API_KEY)
 
 
 @responses.activate

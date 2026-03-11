@@ -73,9 +73,3 @@ async function sendMonthlyInvoice() {
 sendMonthlyInvoice();
 ```
 
-## Local Development
-If you are running tests or sandbox development, initialize the client with the `environment` set to `"sandbox"`:
-
-```javascript
-const client = new SendSculptClient('your-api-key', 'sandbox');
-```

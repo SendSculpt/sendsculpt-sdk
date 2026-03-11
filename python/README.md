@@ -59,12 +59,3 @@ response = client.send_email(
 print("Email queued successfully:", response['message_id'])
 ```
 
-## Local Development
-If you are running tests or sandbox development, initialize the client with the `environment` set to `"sandbox"`:
-
-```python
-client = SendSculptClient(
-    api_key="your-api-key", 
-    environment="sandbox"
-)
-```

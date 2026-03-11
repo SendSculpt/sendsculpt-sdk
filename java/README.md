@@ -30,11 +30,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        // Initialize client. Options are:
-        // 1. SendSculptClient(String apiKey) (defaults to live production)
-        // 2. SendSculptClient(String apiKey, String environment) (for sandbox environments)
-        
-        SendSculptClient client = new SendSculptClient("your-api-key", "sandbox");
+        // Initialize client with your API key.
+        SendSculptClient client = new SendSculptClient("your-api-key");
 
         SendEmailRequest request = new SendEmailRequest();
         request.setTo(Arrays.asList("recipient@example.com"));
