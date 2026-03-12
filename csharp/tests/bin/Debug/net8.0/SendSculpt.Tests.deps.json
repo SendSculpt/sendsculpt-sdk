@@ -12,9 +12,7 @@
           "Moq": "4.20.70",
           "Moq.Contrib.HttpClient": "1.4.0",
           "SendSculpt": "1.0.0",
-          "coverlet.collector": "6.0.0",
-          "xunit": "2.7.0",
-          "xunit.runner.visualstudio": "2.5.7"
+          "xunit": "2.7.0"
         },
         "runtime": {
           "SendSculpt.Tests.dll": {}
@@ -31,7 +29,6 @@
           }
         }
       },
-      "coverlet.collector/6.0.0": {},
       "Microsoft.CodeCoverage/17.9.0": {
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {
@@ -129,10 +126,6 @@
         }
       },
       "Microsoft.Extensions.Primitives/2.1.1": {
-        "dependencies": {
-          "System.Memory": "4.5.1",
-          "System.Runtime.CompilerServices.Unsafe": "4.5.1"
-        },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll": {
             "assemblyVersion": "2.1.1.0",
@@ -147,9 +140,6 @@
         }
       },
       "Microsoft.TestPlatform.ObjectModel/17.9.0": {
-        "dependencies": {
-          "System.Reflection.Metadata": "1.6.0"
-        },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.TestPlatform.CoreUtilities.dll": {
             "assemblyVersion": "15.0.0.0",
@@ -406,8 +396,7 @@
       "Moq.Contrib.HttpClient/1.4.0": {
         "dependencies": {
           "Microsoft.Extensions.Http": "2.1.1",
-          "Moq": "4.20.70",
-          "System.Net.Http.Json": "6.0.0"
+          "Moq": "4.20.70"
         },
         "runtime": {
           "lib/netstandard2.0/Moq.Contrib.HttpClient.dll": {
@@ -446,23 +435,8 @@
           }
         }
       },
-      "System.Memory/4.5.1": {},
-      "System.Net.Http.Json/6.0.0": {
-        "dependencies": {
-          "System.Text.Json": "8.0.0"
-        }
-      },
-      "System.Reflection.Metadata/1.6.0": {},
-      "System.Runtime.CompilerServices.Unsafe/4.5.1": {},
-      "System.Text.Encodings.Web/8.0.0": {},
-      "System.Text.Json/8.0.0": {
-        "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
-        }
-      },
       "xunit/2.7.0": {
         "dependencies": {
-          "xunit.analyzers": "1.11.0",
           "xunit.assert": "2.7.0",
           "xunit.core": "2.7.0"
         }
@@ -475,7 +449,6 @@
           }
         }
       },
-      "xunit.analyzers/1.11.0": {},
       "xunit.assert/2.7.0": {
         "runtime": {
           "lib/net6.0/xunit.assert.dll": {
@@ -512,13 +485,12 @@
           }
         }
       },
-      "xunit.runner.visualstudio/2.5.7": {},
       "SendSculpt/1.0.0": {
-        "dependencies": {
-          "System.Text.Json": "8.0.0"
-        },
         "runtime": {
-          "SendSculpt.dll": {}
+          "SendSculpt.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -535,13 +507,6 @@
       "sha512": "sha512-rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g==",
       "path": "castle.core/5.1.1",
       "hashPath": "castle.core.5.1.1.nupkg.sha512"
-    },
-    "coverlet.collector/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-tW3lsNS+dAEII6YGUX/VMoJjBS1QvsxqJeqLaJXub08y1FSjasFPtQ4UBUsudE9PNrzLjooClMsPtY2cZLdXpQ==",
-      "path": "coverlet.collector/6.0.0",
-      "hashPath": "coverlet.collector.6.0.0.nupkg.sha512"
     },
     "Microsoft.CodeCoverage/17.9.0": {
       "type": "package",
@@ -662,48 +627,6 @@
       "path": "system.diagnostics.eventlog/6.0.0",
       "hashPath": "system.diagnostics.eventlog.6.0.0.nupkg.sha512"
     },
-    "System.Memory/4.5.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-sDJYJpGtTgx+23Ayu5euxG5mAXWdkDb4+b0rD0Cab0M1oQS9H0HXGPriKcqpXuiJDTV7fTp/d+fMDJmnr6sNvA==",
-      "path": "system.memory/4.5.1",
-      "hashPath": "system.memory.4.5.1.nupkg.sha512"
-    },
-    "System.Net.Http.Json/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GbIV4y344kGOKjshAKCIDCMUTTW/hyUC42wV0Y5SXEdIbaKBIHBUxZ2MOe4/ZiV2svUAGfQ0c8LGtUExpOI8tg==",
-      "path": "system.net.http.json/6.0.0",
-      "hashPath": "system.net.http.json.6.0.0.nupkg.sha512"
-    },
-    "System.Reflection.Metadata/1.6.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-COC1aiAJjCoA5GBF+QKL2uLqEBew4JsCkQmoHKbN3TlOZKa2fKLz5CpiRQKDz0RsAOEGsVKqOD5bomsXq/4STQ==",
-      "path": "system.reflection.metadata/1.6.0",
-      "hashPath": "system.reflection.metadata.1.6.0.nupkg.sha512"
-    },
-    "System.Runtime.CompilerServices.Unsafe/4.5.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Zh8t8oqolRaFa9vmOZfdQm/qKejdqz0J9kr7o2Fu0vPeoH3BL1EOXipKWwkWtLT1JPzjByrF19fGuFlNbmPpiw==",
-      "path": "system.runtime.compilerservices.unsafe/4.5.1",
-      "hashPath": "system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512"
-    },
-    "System.Text.Encodings.Web/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ==",
-      "path": "system.text.encodings.web/8.0.0",
-      "hashPath": "system.text.encodings.web.8.0.0.nupkg.sha512"
-    },
-    "System.Text.Json/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-OdrZO2WjkiEG6ajEFRABTRCi/wuXQPxeV6g8xvUJqdxMvvuCCEk86zPla8UiIQJz3durtUEbNyY/3lIhS0yZvQ==",
-      "path": "system.text.json/8.0.0",
-      "hashPath": "system.text.json.8.0.0.nupkg.sha512"
-    },
     "xunit/2.7.0": {
       "type": "package",
       "serviceable": true,
@@ -717,13 +640,6 @@
       "sha512": "sha512-pot1I4YOxlWjIb5jmwvvQNbTrZ3lJQ+jUGkGjWE3hEFM0l5gOnBWS+H3qsex68s5cO52g+44vpGzhAt+42vwKg==",
       "path": "xunit.abstractions/2.0.3",
       "hashPath": "xunit.abstractions.2.0.3.nupkg.sha512"
-    },
-    "xunit.analyzers/1.11.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-SCv+Ihxv+fCqotGeM8sVwLhw8nzAJ2aFRN5lcoKn9QtGdbVJ79JqDc+4u8/Ddnp2udxtmv+xYFWkHNlb/sk01w==",
-      "path": "xunit.analyzers/1.11.0",
-      "hashPath": "xunit.analyzers.1.11.0.nupkg.sha512"
     },
     "xunit.assert/2.7.0": {
       "type": "package",
@@ -752,13 +668,6 @@
       "sha512": "sha512-bjY+crT1jOyxKagFjCMdEVzoenO2v66ru8+CK/0UaXvyG4U9Q3UTieJkbQXbi7/1yZIK1sGh01l5/jh2CwLJtQ==",
       "path": "xunit.extensibility.execution/2.7.0",
       "hashPath": "xunit.extensibility.execution.2.7.0.nupkg.sha512"
-    },
-    "xunit.runner.visualstudio/2.5.7": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-31Rl7dBJriX0DNwZfDp8gqFOPsiM0c9kqpcH/HvNi9vDp+K7Ydf42H7mVIvYT918Ywzn1ymLg1c4DDC6iU754w==",
-      "path": "xunit.runner.visualstudio/2.5.7",
-      "hashPath": "xunit.runner.visualstudio.2.5.7.nupkg.sha512"
     },
     "SendSculpt/1.0.0": {
       "type": "project",

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SendSculpt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddf0e43b201cd99bfbdff83c2f753e495f287d3f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de685e12d5cdd7c34a069226248872a192416252")]
 [assembly: System.Reflection.AssemblyProductAttribute("SendSculpt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SendSculpt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

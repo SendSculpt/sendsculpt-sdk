@@ -1,4 +1,4 @@
-const SendSculptClient = require("../index.js");
+const { SendSculptClient } = require("../index.js");
 const nock = require("nock");
 const fs = require("fs");
 const path = require("path");
@@ -10,7 +10,7 @@ describe("SendSculptClient", () => {
     let client;
 
     beforeEach(() => {
-        client = new SendSculptClient(API_KEY, "sandbox");
+        client = new SendSculptClient(API_KEY);
         nock.cleanAll();
     });
 
@@ -33,7 +33,7 @@ describe("SendSculptClient", () => {
                 expect(body.body_text).toBe("Hello World");
                 return true;
             })
-            .reply(200, payload);
+            .reply(200, { status: true, data: payload });
 
         const response = await client.sendEmail({
             to: ["recipient@example.com"],
@@ -77,7 +77,7 @@ describe("SendSculptClient", () => {
                 expect(body.attachments[0].mime_type).toBe("text/plain");
                 return true;
             })
-            .reply(200, payload);
+            .reply(200, { status: true, data: payload });
 
         const response = await client.sendEmail({
             to: ["recipient@example.com"],
@@ -110,7 +110,7 @@ describe("SendSculptClient", () => {
                 expect(body.attachments[0].content).toBe(expectedBase64);
                 return true;
             })
-            .reply(200, payload);
+            .reply(200, { status: true, data: payload });
 
         const response = await client.sendEmail({
             to: ["recipient@example.com"],

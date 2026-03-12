@@ -22,7 +22,7 @@ namespace SendSculpt.Tests
         {
             _handlerMock = new Mock<HttpMessageHandler>();
             _httpClient = _handlerMock.CreateClient();
-            _client = new SendSculptClient("test-api-key", "sandbox");
+            _client = new SendSculptClient("test-api-key");
             
             // Overriding the _httpClient via reflection to inject the mock since it's private and has no setter
             var field = typeof(SendSculptClient).GetField("_httpClient", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -41,7 +41,7 @@ namespace SendSculpt.Tests
         {
             // Arrange
             _handlerMock.SetupRequest(HttpMethod.Post, "https://api.sendsculpt.com/api/v1/send")
-                .ReturnsResponse(HttpStatusCode.OK, "{\"message_id\":\"test-msg-id\",\"status\":\"sent\"}", "application/json");
+                .ReturnsResponse(HttpStatusCode.OK, "{\"status\":true,\"data\":{\"message_id\":\"test-msg-id\",\"status\":\"sent\"}}", "application/json");
 
             var request = new SendEmailRequest
             {
@@ -96,7 +96,7 @@ namespace SendSculpt.Tests
         {
             // Arrange
             _handlerMock.SetupRequest(HttpMethod.Post, "https://api.sendsculpt.com/api/v1/send")
-                .ReturnsResponse(HttpStatusCode.OK, "{\"message_id\":\"msg\",\"status\":\"sent\"}", "application/json");
+                .ReturnsResponse(HttpStatusCode.OK, "{\"status\":true,\"data\":{\"message_id\":\"msg\",\"status\":\"sent\"}}", "application/json");
 
             var tempFile = Path.GetTempFileName();
             await File.WriteAllTextAsync(tempFile, "hello file");

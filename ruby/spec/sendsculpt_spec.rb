@@ -15,7 +15,7 @@ RSpec.describe Sendsculpt::Client do
   end
 
   describe '#send_email' do
-    let(:success_response) { { message_id: 'test-msg-id', status: 'sent' }.to_json }
+    let(:success_response) { { status: true, data: { message_id: 'test-msg-id', status: 'sent' } }.to_json }
 
     it 'successfully sends an email via the API' do
       stub_request(:post, "#{base_url}/send")
