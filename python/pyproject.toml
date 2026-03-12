@@ -1,0 +1,15 @@
+[project]
+name = "sendsculpt-sdk"
+version = "0.1.0"
+description = "Sendsculpt python SDK"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "responses",
+]
